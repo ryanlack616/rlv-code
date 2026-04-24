@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RL Ventures · Code</title>
+<meta name="description" content="Engineering hub for RL Ventures LLC — computational ceramics, formal verification, local-first tools. Built in Howell, Michigan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --surface: #101013;
+    --surface-2: #161619;
+    --border: #1e1e24;
+    --text: #d0d0d8;
+    --text-dim: #55555f;
+    --text-mid: #888892;
+    --accent: #c4826e;
+    --accent-warm: #a3855a;
+    --accent-green: #7ea371;
+    --font: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 0;
+  }
+  header .container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .wordmark { font-size: 0.85rem; letter-spacing: 0.08em; color: var(--text-mid); }
+  .wordmark span { color: var(--accent); font-weight: 500; }
+  .wordmark .slash { color: var(--text-dim); margin: 0 0.4rem; }
+  .wordmark .page { color: var(--text); }
+  .header-right {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .header-right a { color: var(--text-dim); }
+  .header-right a:hover { color: var(--accent); text-decoration: none; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-glyph {
+    font-size: clamp(3.5rem, 10vw, 7.5rem);
+    font-weight: 300;
+    color: var(--border);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 2rem;
+    user-select: none;
+  }
+  .hero-tagline {
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .hero-sub {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── Section labels ── */
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1.75rem;
+    padding-top: 3rem;
+  }
+
+  /* ── Now ── */
+  .now {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2.5rem;
+  }
+  .now-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.25rem 1.5rem;
+    font-size: 12.5px;
+  }
+  .now-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding-top: 0.15rem;
+  }
+  .now-body { color: var(--text-mid); line-height: 1.75; }
+  .now-body strong { color: var(--text); font-weight: 400; }
+
+  /* ── Projects ── */
+  .projects {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2.5rem;
+  }
+  .proj-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .proj-row:last-child { border-bottom: none; }
+  .proj-name {
+    font-size: 13.5px;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .proj-name a { color: var(--text); }
+  .proj-name a:hover { color: var(--accent); text-decoration: none; }
+  .proj-desc {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+  .proj-meta {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .tag {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.45rem;
+  }
+  .tag.lang { color: var(--accent-warm); border-color: var(--accent-warm); }
+  .proj-status {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--text-dim);
+  }
+  .proj-status.live { color: var(--accent-green); }
+  .proj-status.beta { color: var(--accent); }
+  .proj-status.alpha { color: var(--accent-warm); }
+
+  /* ── Principles ── */
+  .principles {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2.5rem;
+  }
+  .prin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .prin-card {
+    background: var(--surface);
+    padding: 1.5rem 1.5rem;
+  }
+  .prin-num {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+  .prin-name {
+    font-size: 12.5px;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.6rem;
+  }
+  .prin-body {
+    font-size: 11.5px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ── Stack ── */
+  .stack {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2.5rem;
+  }
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0.9rem 1.5rem;
+    font-size: 12px;
+  }
+  .stack-cat {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding-top: 0.1rem;
+  }
+  .stack-list { color: var(--text-mid); letter-spacing: 0.02em; }
+  .stack-list code {
+    color: var(--text);
+    font-family: inherit;
+    font-size: 11.5px;
+  }
+
+  /* ── Contact ── */
+  .contact {
+    padding: 2.5rem 0 3rem;
+  }
+  .contact-block {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .contact-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    padding-top: 0.1rem;
+  }
+  .contact-body {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    flex: 1;
+    min-width: 240px;
+  }
+  .contact-body a { color: var(--text); }
+  .contact-body a:hover { color: var(--accent); }
+
+  /* ── Footer ── */
+  footer { padding: 2rem 0 3rem; }
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer-left {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+  .footer-right {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .prin-grid { grid-template-columns: 1fr; }
+    .now-grid, .stack-grid { grid-template-columns: 1fr; gap: 0.25rem 0; }
+    .now-label, .stack-cat { padding-top: 0.75rem; }
+    header .container { flex-direction: column; gap: 0.3rem; align-items: flex-start; }
+    footer .container { flex-direction: column; gap: 0.5rem; }
+    .hero { padding: 3.5rem 0 3rem; }
+    .proj-row { grid-template-columns: 1fr; }
+    .proj-status { margin-top: 0.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="wordmark">
+      <span>RL Ventures</span><span class="slash">/</span><span class="page">code</span>
+    </div>
+    <div class="header-right"><a href="https://rlventures.com">rlventures.com</a> &nbsp;·&nbsp; Howell, MI</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-glyph">&lt;/&gt;</div>
+    <div class="hero-tagline">Systems that earn their trust.</div>
+    <div class="hero-sub">Local-first · Formally verified · Built in the open</div>
+  </div>
+</section>
+
+<section class="now">
+  <div class="container">
+    <div class="section-label">Now</div>
+    <div class="now-grid">
+      <div class="now-label">Active</div>
+      <div class="now-body">
+        <strong>Stull Atlas v3</strong> — 12,880 glazes, 133 computed properties, Lighthouse 100/100.
+        <strong>Orton Cone Sim</strong> — MPM kinetic kiln model, Pass 3 baseline holding at 1302.34 °C ± 0.01.
+        <strong>Ceramic Engine</strong> — empirical substitution engine, 67/67 tests.
+      </div>
+      <div class="now-label">Shipping</div>
+      <div class="now-body">
+        <strong>minarealm Phase 4</strong> — multi-user shop + audit log live on Cloudflare Workers + R2 + KV.
+        <strong>Howell Brain</strong> — local-first memory daemon + KG, 99 entities tracked.
+      </div>
+      <div class="now-label">Next</div>
+      <div class="now-body">
+        Convert provisional patent <strong>#63/975,104</strong> (due Feb 3, 2027).
+        Publish the Ceramic Engine empirical substitution paper.
+        Expand Stull Atlas variability mapping into production QA tooling.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects">
+  <div class="container">
+    <div class="section-label">Projects</div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name"><a href="https://stullatlas.app" target="_blank" rel="noopener">Stull Atlas</a></div>
+        <div class="proj-desc">Computational glaze chemistry explorer. 12,880 recipes, UMF analysis, unity phase-space visualization, variability mapping. Web-worker-parsed v2 shards, sub-second LCP.</div>
+        <div class="proj-meta">
+          <span class="tag lang">TypeScript</span>
+          <span class="tag">React · Vite</span>
+          <span class="tag">Python ETL</span>
+          <span class="tag">Cloudflare Pages</span>
+        </div>
+      </div>
+      <div class="proj-status live">Live</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name">Orton Cone Sim</div>
+        <div class="proj-desc">Taichi-MPM kinetic simulation of pyrometric cones. Reproduces Orton heat-work curves within 0.01 °C of Pass 3 baseline. Research instrument, not a toy.</div>
+        <div class="proj-meta">
+          <span class="tag lang">Python</span>
+          <span class="tag">Taichi</span>
+          <span class="tag">MPM</span>
+          <span class="tag">pytest</span>
+        </div>
+      </div>
+      <div class="proj-status beta">Research</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name">Ceramic Engine</div>
+        <div class="proj-desc">Substitution prediction engine built on the CMW empirical corpus. Three rules, full unit coverage, deployable via Fly.io. The grounded alternative to unity-based guesswork.</div>
+        <div class="proj-meta">
+          <span class="tag lang">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Fly.io</span>
+        </div>
+      </div>
+      <div class="proj-status beta">Beta</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name"><a href="https://ceramictransitions.com" target="_blank" rel="noopener">Crystal VR</a></div>
+        <div class="proj-desc">WebXR viewer for twelve major ceramic crystal structures with phase-transition animation. Built for teaching what kiln curves actually do to matter.</div>
+        <div class="proj-meta">
+          <span class="tag lang">TypeScript</span>
+          <span class="tag">Three.js</span>
+          <span class="tag">WebXR</span>
+        </div>
+      </div>
+      <div class="proj-status live">Live</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name"><a href="https://minarealm.shop" target="_blank" rel="noopener">minarealm</a></div>
+        <div class="proj-desc">Multi-user storefront + admin for a Michigan crystal & tarot shop. Cloudflare Workers, R2, KV. Per-user SHA-256 auth, 365-day audit log, server-side re-pricing.</div>
+        <div class="proj-meta">
+          <span class="tag lang">JavaScript</span>
+          <span class="tag">Cloudflare Workers</span>
+          <span class="tag">R2 + KV</span>
+        </div>
+      </div>
+      <div class="proj-status live">Live</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name">Howell Brain</div>
+        <div class="proj-desc">Local-first memory system for AI assistants. Knowledge graph, pinned observations, session handoffs, quarantine review. 99 entities, 77 relations, no cloud dependency.</div>
+        <div class="proj-meta">
+          <span class="tag lang">Python</span>
+          <span class="tag">MCP</span>
+          <span class="tag">SQLite</span>
+        </div>
+      </div>
+      <div class="proj-status beta">Beta</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name">ConduitBridge</div>
+        <div class="proj-desc">Formally verified protocol bridge for heterogeneous AV systems. 314 Lean theorems covering message translation, liveness, and failure semantics.</div>
+        <div class="proj-meta">
+          <span class="tag lang">Lean 4</span>
+          <span class="tag">Rust</span>
+          <span class="tag">Formal Verification</span>
+        </div>
+      </div>
+      <div class="proj-status alpha">Alpha</div>
+    </div>
+
+    <div class="proj-row">
+      <div>
+        <div class="proj-name">myclaystudio</div>
+        <div class="proj-desc">Studio management platform — bookings, clay days, commission queue, community portfolio, glaze calculator integration.</div>
+        <div class="proj-meta">
+          <span class="tag lang">TypeScript</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Drizzle ORM</span>
+        </div>
+      </div>
+      <div class="proj-status alpha">Alpha</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="principles">
+  <div class="container">
+    <div class="section-label">Engineering Principles</div>
+    <div class="prin-grid">
+      <div class="prin-card">
+        <div class="prin-num">01</div>
+        <div class="prin-name">Verify, don't assume</div>
+        <div class="prin-body">Tests gate merges. Proofs gate claims. If a number appears in the UI, a script generated it and a test checks it.</div>
+      </div>
+      <div class="prin-card">
+        <div class="prin-num">02</div>
+        <div class="prin-name">Local-first</div>
+        <div class="prin-body">The machine on your desk is the source of truth. Cloud is a replica. Nothing critical lives behind someone else's login.</div>
+      </div>
+      <div class="prin-card">
+        <div class="prin-num">03</div>
+        <div class="prin-name">Ship the boring version</div>
+        <div class="prin-body">Single-file HTML, static hosts, SQLite, cron. Complexity is earned by the one real problem the simple version cannot solve.</div>
+      </div>
+      <div class="prin-card">
+        <div class="prin-num">04</div>
+        <div class="prin-name">Ground the abstract</div>
+        <div class="prin-body">Every model is wrong until it touches a measurement. We build simulators that can be refuted and ship them with the refutation path.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stack">
+  <div class="container">
+    <div class="section-label">Stack</div>
+    <div class="stack-grid">
+      <div class="stack-cat">Languages</div>
+      <div class="stack-list"><code>Python</code> · <code>TypeScript</code> · <code>Rust</code> · <code>Lean 4</code> · <code>PowerShell</code></div>
+      <div class="stack-cat">Web</div>
+      <div class="stack-list"><code>React</code> · <code>Vite</code> · <code>Next.js</code> · <code>Three.js / WebXR</code> · single-file HTML when it fits</div>
+      <div class="stack-cat">Backend</div>
+      <div class="stack-list"><code>FastAPI</code> · <code>Cloudflare Workers</code> · <code>Fly.io</code> · <code>SQLite</code> · <code>KV + R2</code></div>
+      <div class="stack-cat">Compute</div>
+      <div class="stack-list"><code>Taichi</code> · <code>NumPy / SciPy</code> · MPM and FEM for physical simulation</div>
+      <div class="stack-cat">Dev loop</div>
+      <div class="stack-list"><code>pytest</code> · <code>Playwright</code> · <code>Lighthouse</code> · <code>Plausible</code> (no GA) · Porkbun FTP where it still works</div>
+      <div class="stack-cat">AI</div>
+      <div class="stack-list"><code>MCP</code> · local Ollama · Claude (Opus/Sonnet) for agent work · never for the numbers that matter</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="container">
+    <div class="contact-block">
+      <div class="contact-label">Get in touch</div>
+      <div class="contact-body">
+        Consulting: computational ceramics, formal methods, local-first systems, technical due diligence.<br>
+        <a href="mailto:ryan@rlventures.com">ryan@rlventures.com</a> &nbsp;·&nbsp;
+        <a href="https://rlventures.com">rlventures.com</a> &nbsp;·&nbsp;
+        <a href="https://groundequals.com">groundequals.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-left">RL Ventures LLC &nbsp;·&nbsp; Howell, Michigan &nbsp;·&nbsp; Est. 2026</div>
+    <div class="footer-right">Where proof meets practice.</div>
+  </div>
+</footer>
+
+</body>
+</html>

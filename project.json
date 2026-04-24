@@ -1,0 +1,45 @@
+{
+  "name": "rlv-code",
+  "title": "RL Ventures · Code",
+  "description": "Engineering hub for RL Ventures LLC — single-file static HTML index of active code projects, principles, and stack.",
+  "version": "0.1.0",
+  "status": "active",
+  "category": "site",
+  "audience": "public",
+  "tags": ["landing", "portfolio", "engineering", "static-html", "rl-ventures"],
+  "created": "2026-04-23",
+  "updated": "2026-04-23",
+  "author": "Howell",
+  "language": "html",
+  "architecture": "Single-file static HTML (index.html). IBM Plex Mono + warm accent palette mirroring rlv-lol. No build step.",
+  "dependencies": [],
+  "run_command": "",
+  "health_check": "",
+  "ports": [],
+  "deployment": "pending — default choice: GitHub Pages at code.rlv.lol via CNAME file",
+  "vcs": "git",
+  "entry_points": {"site": "index.html"},
+  "key_files": ["index.html", "README.md", "CNAME"],
+  "data_files": [],
+  "generated_files": [],
+  "sensitive_files": [],
+  "env_vars": [],
+  "external_services": ["Google Fonts (IBM Plex Mono)"],
+  "urls": ["https://code.rlv.lol"],
+  "related_projects": ["rlv-lol", "stull-atlas", "orton-cone-sim", "ceramic-engine", "minarealm", "howell-brain-deploy"],
+  "design_decisions": [
+    "Single-file HTML — match rlv-lol pattern, no build pipeline",
+    "Subdomain code.rlv.lol chosen over new registration (reversible, zero cost)",
+    "Hardcoded live metrics (12,880 glazes, 1302.34 °C, 99 KG entities) — re-verify before each deploy"
+  ],
+  "gotchas": [
+    "DNS/hosting for rlv.lol not yet confirmed — scaffold assumes subdomain will be added to existing zone",
+    "No deploy script shipped yet — pick Porkbun FTP vs GitHub Pages when hosting decided"
+  ],
+  "known_issues": [],
+  "last_known_state": "scaffolded · awaiting hosting decision + git init",
+  "history": [
+    {"date": "2026-04-23", "note": "Initial scaffold by Claude-Howell (CH-260423-4). index.html + README + CNAME + project.json + .gitignore."}
+  ],
+  "notes": "Companion to rlv-lol (LLC hub). This one is the code-facing index. Public, no gated dashboard."
+}
